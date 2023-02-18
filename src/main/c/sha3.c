@@ -71,24 +71,25 @@ static void keccakf(uint64_t st[25], int rounds)
 
   printf("Starting\n");
   printState(st);
-
-  for (round_num = 0; round_num < rounds; round_num++) { //24 times
-
+  for (round_num = 0; round_num < rounds; round_num++) 
+  {
     // Theta
     for (i = 0; i < 5; i++) 
       bc[i] = st[i] ^ st[i + 5] ^ st[i + 10] ^ st[i + 15] ^ st[i + 20];
     
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 5; i++) 
+    {
       t = bc[(i + 4) % 5] ^ ROTL64(bc[(i + 1) % 5], 1);
       for (j = 0; j < 25; j += 5)
-        st[j + i] ^= t;
-    }
+  st[j + i] ^= t;
+      }
+
     printf("After Theta:\n");
     printState(st);
-
     // Rho Pi
     t = st[1];
-    for (i = 0; i < 24; i++) {
+    for (i = 0; i < 24; i++) 
+    {
       j = keccakf_piln[i];
       bc[0] = st[j];
       st[j] = ROTL64(t, keccakf_rotc[i]);
@@ -98,16 +99,16 @@ static void keccakf(uint64_t st[25], int rounds)
     printState(st);
 
     //  Chi
-    for (j = 0; j < 25; j += 5) {
+    for (j = 0; j < 25; j += 5) 
+    {
       for (i = 0; i < 5; i++)
-        bc[i] = st[j + i];
+  bc[i] = st[j + i];
       for (i = 0; i < 5; i++)
-        st[j + i] ^= (~bc[(i + 1) % 5]) & bc[(i + 2) % 5];
+  st[j + i] ^= (~bc[(i + 1) % 5]) & bc[(i + 2) % 5];
     }
 
     printf("After Chi:\n");
     printState(st);
-
     //  Iota
     st[0] ^= keccakf_rndc[round_num];
     printf("After Iota:\n");

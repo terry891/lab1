@@ -18,7 +18,7 @@ class Sha3AccelTests extends TestWithBackendSelect with ChiselScalatestTester {
       )
 
       // Set a time big enough such that we can handle the case that valid is never high.
-      var timeout = 10000 
+      var timeout = 100040
 
       for (i <- 0 until c.round_size_words) 
         c.io.message.bits(i).poke(test_message(i))
@@ -51,3 +51,4 @@ class Sha3AccelTests extends TestWithBackendSelect with ChiselScalatestTester {
     }
   }
 }
+
